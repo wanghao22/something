@@ -1,0 +1,13 @@
+D:\Code\CSharpe\CSMusic\CSMusic\bin\Debug\CSMusic.exe.config
+D:\Code\CSharpe\CSMusic\CSMusic\bin\Debug\CSMusic.exe
+D:\Code\CSharpe\CSMusic\CSMusic\bin\Debug\CSMusic.pdb
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\CSMusic.csprojResolveAssemblyReference.cache
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\CSMusic.Form1.resources
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\CSMusic.Properties.Resources.resources
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\CSMusic.csproj.GenerateResource.Cache
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\CSMusic.exe
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\CSMusic.pdb
+D:\Code\CSharpe\CSMusic\CSMusic\bin\Debug\NAudio.dll
+D:\Code\CSharpe\CSMusic\CSMusic\bin\Debug\NAudio.xml
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\Interop.WMPLib.dll
+D:\Code\CSharpe\CSMusic\CSMusic\obj\Debug\CSMusic.csproj.ResolveComReference.cache

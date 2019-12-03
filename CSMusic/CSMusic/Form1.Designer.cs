@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Bt_Play = new System.Windows.Forms.Button();
             this.Music_list = new System.Windows.Forms.ListBox();
             this.Music_Add = new System.Windows.Forms.Button();
@@ -227,6 +228,7 @@
             this.Controls.Add(this.Music_Add);
             this.Controls.Add(this.Music_list);
             this.Controls.Add(this.Bt_Play);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Soul Music";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>xdQR</name>
+    </assembly>
+    <members>
+        <member name="M:xdQR.QR_Creat.#ctor">
+            <summary>
+            无参数的构造函数
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.#ctor(System.Int32)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="width"></param>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_text(System.String)">
+            <summary>
+            静态文字
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_url(System.String)">
+            <summary>
+            网上链接
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_wifi(System.String,System.String,QRCoder.PayloadGenerator.WiFi.Authentication,System.Boolean)">
+            <summary>
+            wifi
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_bookmark(System.String,System.String)">
+            <summary>
+            书签
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_OneTimePassword(System.String,System.String,System.String)">
+            <summary>
+            一次性验证码
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_Phonenumber(System.String)">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_Mail(System.String,System.String,System.String,QRCoder.PayloadGenerator.Mail.MailEncoding)">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_SMS(System.String,System.String,QRCoder.PayloadGenerator.SMS.SMSEncoding)">
+            <summary>
+            短信
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_WhatsAppMsg(System.String)">
+            <summary>
+            WhatsAppMessage
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_Geolocation(System.String,System.String,QRCoder.PayloadGenerator.Geolocation.GeolocationEncoding)">
+            <summary>
+            地理位置
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_ContactData(System.String,System.String,QRCoder.PayloadGenerator.ContactData.ContactOutputType,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,QRCoder.PayloadGenerator.ContactData.AddressOrder)">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.QR_Calendarevents(System.String,System.String,System.String,System.DateTime,System.DateTime,System.Boolean,QRCoder.PayloadGenerator.CalendarEvent.EventEncoding)">
+            <summary>
+            日历事件
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.Encode(System.String)">
+            <summary>
+            返回二维码图片
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.Decode(System.Drawing.Bitmap)">
+            <summary>
+            返回二维码定义的字符串
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat.Decode(System.String)">
+            <summary>
+            返回二维码定义的字符串
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.#ctor">
+            <summary>
+            无参数的构造函数
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.#ctor(System.Int32)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="width"></param>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_text(System.String)">
+            <summary>
+            静态文字
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_url(System.String)">
+            <summary>
+            网上链接
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_wifi(System.String,System.String,QRCoder.PayloadGenerator.WiFi.Authentication,System.Boolean)">
+            <summary>
+            wifi
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_bookmark(System.String,System.String)">
+            <summary>
+            书签
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_OneTimePassword(System.String,System.String,System.String)">
+            <summary>
+            一次性验证码
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_Phonenumber(System.String)">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_Mail(System.String,System.String,System.String,QRCoder.PayloadGenerator.Mail.MailEncoding)">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_SMS(System.String,System.String,QRCoder.PayloadGenerator.SMS.SMSEncoding)">
+            <summary>
+            短信
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_WhatsAppMsg(System.String)">
+            <summary>
+            WhatsAppMessage
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_Geolocation(System.String,System.String,QRCoder.PayloadGenerator.Geolocation.GeolocationEncoding)">
+            <summary>
+            地理位置
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_ContactData(System.String,System.String,QRCoder.PayloadGenerator.ContactData.ContactOutputType,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,QRCoder.PayloadGenerator.ContactData.AddressOrder)">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.QR_Calendarevents(System.String,System.String,System.String,System.DateTime,System.DateTime,System.Boolean,QRCoder.PayloadGenerator.CalendarEvent.EventEncoding)">
+            <summary>
+            日历事件
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.Encode(System.String)">
+            <summary>
+            返回二维码图片
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.Decode(OpenCvSharp.Mat)">
+            <summary>
+            返回二维码定义的字符串
+            </summary>
+        </member>
+        <member name="M:xdQR.QR_Creat_Mat.Decode(System.String)">
+            <summary>
+            返回二维码定义的字符串
+            </summary>
+        </member>
+    </members>
+</doc>

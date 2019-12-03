@@ -11,6 +11,7 @@ using NAudio.CoreAudioApi;
 using System.Threading;
 using NAudio.Wave;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace CSMusic
 {
@@ -53,6 +54,7 @@ namespace CSMusic
             rng = new Random();
             CB_Play_State.SelectedIndex = 1;
             //play_state = PlayState.random_play;
+            Get_Music_Dir();
             LoadAllMusic(Music_Dir.Text);
             hostry = new List<int>();
         }
@@ -175,8 +177,8 @@ namespace CSMusic
                 int sec = maxl % 60;
                 TimeSpan pan = new TimeSpan(hour, mint, sec);
                 mp3.CurrentTime = pan;
-                trackbar_flag = true;
             }
+            trackbar_flag = true;
         }
 
         /// <summary>
@@ -581,6 +583,11 @@ namespace CSMusic
             PlayNext(play_state);
         }
 
+        /// <summary>
+        /// 播放上一个
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Last_one_Click(object sender, EventArgs e)
         {
             var last = hostry.Count;
@@ -596,6 +603,11 @@ namespace CSMusic
             PlayMusic(file);
         }
 
+        /// <summary>
+        /// 选择文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Select_Music_Dir_Click(object sender, EventArgs e)
         {
             var dlg = new FolderBrowserDialog();
@@ -604,7 +616,38 @@ namespace CSMusic
             {
                 Music_Dir.Text = dlg.SelectedPath;
             }
+            Set_Music_Dir();
             LoadAllMusic(Music_Dir.Text);
+        }
+
+        private void Get_Music_Dir()
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(@"dir.json", FileMode.Open))
+                {
+                    using (StreamReader sw = new StreamReader(fs, Encoding.Default))
+                    {
+                        Music_Dir.Text = sw.ReadLine();
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Music_Dir.Text = @"D:\Music";
+                Set_Music_Dir();
+            }
+        }
+
+        private void Set_Music_Dir()
+        {
+            using (FileStream fs = new FileStream(@"dir.json", FileMode.Create))
+            {
+                using (StreamWriter sw = new StreamWriter(fs, Encoding.Default))
+                {
+                    sw.WriteLine(Music_Dir.Text);
+                }
+            }
         }
     }
 

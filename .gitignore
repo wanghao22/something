@@ -1,0 +1,19 @@
+﻿# Compiled Object files
+*.slo
+*.lo
+*.o
+*.pdb
+*.exp
+*.idb
+*.ipdb
+*.iobj
+*.ipch
+*.ilk
+*.obj
+*.log
+*.tlog
+*.cki
+*.exe.config
+*.VC.db
+*.opendb
+ipch/

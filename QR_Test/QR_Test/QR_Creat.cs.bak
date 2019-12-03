@@ -1,0 +1,586 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
+using QRCoder;
+using static QRCoder.PayloadGenerator;
+using ThoughtWorks.QRCode;
+using ThoughtWorks.QRCode.Codec;
+using ThoughtWorks.QRCode.Codec.Data;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+
+namespace QR_Test
+{
+    class QR_Creat
+    {
+        public int QR_Width;
+
+        /// <summary>
+        /// 无参数的构造函数
+        /// </summary>
+        public QR_Creat()
+        {
+            QR_Width = 300;
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="width"></param>
+        public QR_Creat(int width)
+        {
+            QR_Width = width;
+        }
+
+        /// <summary>
+        /// 静态文字
+        /// </summary>
+        public Bitmap QR_text(string msg)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(msg, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(10);
+            //Mat src = BitmapConverter.ToMat(QR);
+            //Cv2.Resize(src, src, new OpenCvSharp.Size(300, 300));
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return new Bitmap(Image);
+        }
+
+        /// <summary>
+        /// 网上链接
+        /// </summary>
+        public Bitmap QR_url(string urll)
+        {
+            Url url = new Url(urll);
+            //string lol = "https://www.baidu.com";//也行
+            string lol = url.ToString();
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(lol, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4, Color.DarkRed, Color.PaleGreen, true);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// wifi
+        /// </summary>
+        public Bitmap QR_wifi(string ssid, string password, WiFi.Authentication auth = 
+            WiFi.Authentication.WPA, bool ishidessid = false)
+        {
+            WiFi generator = new WiFi(ssid, password, auth, isHiddenSSID: ishidessid);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4, Color.Red, Color.Green, (Bitmap)Bitmap.FromFile("D:\\1122\\02\\NG\\1 (1).jpg"));
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 书签
+        /// </summary>
+        public Bitmap QR_bookmark(string url,string title)
+        {
+            Bookmark generator = new Bookmark(url, title);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 一次性验证码
+        /// </summary>
+        public Bitmap QR_OneTimePassword(string address, string password, string issuer)
+        {
+            OneTimePassword generator = new OneTimePassword()
+            {
+                Secret = password,
+                Issuer = issuer,
+                Label = address,
+            };
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 电话
+        /// </summary>
+        public Bitmap QR_Phonenumber(string tel)
+        {
+            PhoneNumber generator = new PhoneNumber(tel);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public Bitmap QR_Mail(string receiver, string subject, string msg, 
+            Mail.MailEncoding encoding = Mail.MailEncoding.MATMSG)
+        {
+            Mail generator = new Mail(receiver, subject, msg, encoding);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(3);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 短信
+        /// </summary>
+        public Bitmap QR_SMS(string tel, string msg, SMS.SMSEncoding encoding = SMS.SMSEncoding.SMSTO)
+        {
+            SMS generator = new SMS(tel, msg, encoding);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// WhatsAppMessage
+        /// </summary>
+        public Bitmap QR_WhatsAppMsg(string msg)
+        {
+            WhatsAppMessage generator = new WhatsAppMessage(msg);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 地理位置
+        /// </summary>
+        public Bitmap QR_Geolocation(string late, string longe, Geolocation.GeolocationEncoding 
+            encoding_ = Geolocation.GeolocationEncoding.GEO)
+        {
+            //Geolocation generator = new Geolocation("51.26118", "6.6717");
+            Geolocation generator = new Geolocation(late, longe, encoding_);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public Bitmap QR_ContactData(string xing, string name,
+            ContactData.ContactOutputType outtype = ContactData.ContactOutputType.VCard3,
+            string nickname = null, string phone = null, string mobilPhone = null, string
+            workPhone = null, string email = null, DateTime? birthday = null, string website = null
+            , string street = null, string houseNumber = null, string city = null, string zipCode
+            = null, string country = null, string note = null, string state = null,
+            ContactData.AddressOrder addressOrder = ContactData.AddressOrder.Default)
+        {
+            ContactData generator = new ContactData(outtype, name, xing, nickname, phone, 
+                mobilPhone, workPhone, email, birthday, website, street, houseNumber, city, 
+                zipCode, country, note, state, addressOrder);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 日历事件
+        /// </summary>
+        public Bitmap QR_Calendarevents(string subject, string desc, string location, 
+            DateTime start, DateTime end, bool allday, CalendarEvent.EventEncoding encoding = 
+            CalendarEvent.EventEncoding.Universal)
+        {
+            CalendarEvent generator = new CalendarEvent(subject, desc, location,
+                start, end, true, encoding);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            var Image = QR.GetThumbnailImage(QR_Width, QR_Width, null, IntPtr.Zero);
+            return (Bitmap)Image;
+        }
+
+        /// <summary>
+        /// 返回二维码图片
+        /// </summary>
+        public Bitmap Encode(string text)
+        {
+            try
+            {
+                var qrCodeEncoder = new QRCodeEncoder();
+                qrCodeEncoder.QRCodeVersion = 5;
+                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+                qrCodeEncoder.QRCodeScale = 4;
+                return qrCodeEncoder.Encode(text);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 返回二维码定义的字符串
+        /// </summary>
+        public string Decode(Bitmap image)
+        {
+            try
+            {
+                var qrCodeBitmapImage = new QRCodeBitmapImage(image);
+                var qrCodeDecoder = new QRCodeDecoder();
+                //qrCodeDecoder.decode(qrCodeBitmapImage, Encoding.ASCII);
+                return qrCodeDecoder.decode(qrCodeBitmapImage, Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 返回二维码定义的字符串
+        /// </summary>
+        public string Decode(string path)
+        {
+            return Decode(new Bitmap(path));
+        }
+    }
+
+    class QR_Creat_Mat
+    {
+        public int QR_Width;
+
+        /// <summary>
+        /// 无参数的构造函数
+        /// </summary>
+        public QR_Creat_Mat()
+        {
+            QR_Width = 300;
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="width"></param>
+        public QR_Creat_Mat(int width)
+        {
+            QR_Width = width;
+        }
+
+        /// <summary>
+        /// 静态文字
+        /// </summary>
+        public Mat QR_text(string msg)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(msg, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(10);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 网上链接
+        /// </summary>
+        public Mat QR_url(string urll)
+        {
+            Url url = new Url(urll);
+            //string lol = "https://www.baidu.com";//也行
+            string lol = url.ToString();
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(lol, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4, Color.DarkRed, Color.PaleGreen, true);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// wifi
+        /// </summary>
+        public Mat QR_wifi(string ssid, string password, WiFi.Authentication auth =
+            WiFi.Authentication.WPA, bool ishidessid = false)
+        {
+            WiFi generator = new WiFi(ssid, password, auth, isHiddenSSID: ishidessid);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4, Color.Red, Color.Green, (Bitmap)Bitmap.FromFile("D:\\1122\\02\\NG\\1 (1).jpg"));
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 书签
+        /// </summary>
+        public Mat QR_bookmark(string url, string title)
+        {
+            Bookmark generator = new Bookmark(url, title);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 一次性验证码
+        /// </summary>
+        public Mat QR_OneTimePassword(string address, string password, string issuer)
+        {
+            OneTimePassword generator = new OneTimePassword()
+            {
+                Secret = password,
+                Issuer = issuer,
+                Label = address,
+            };
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 电话
+        /// </summary>
+        public Mat QR_Phonenumber(string tel)
+        {
+            PhoneNumber generator = new PhoneNumber(tel);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        public Mat QR_Mail(string receiver, string subject, string msg,
+            Mail.MailEncoding encoding = Mail.MailEncoding.MATMSG)
+        {
+            Mail generator = new Mail(receiver, subject, msg, encoding);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(3);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 短信
+        /// </summary>
+        public Mat QR_SMS(string tel, string msg, SMS.SMSEncoding encoding = SMS.SMSEncoding.SMSTO)
+        {
+            SMS generator = new SMS(tel, msg, encoding);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// WhatsAppMessage
+        /// </summary>
+        public Mat QR_WhatsAppMsg(string msg)
+        {
+            WhatsAppMessage generator = new WhatsAppMessage(msg);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 地理位置
+        /// </summary>
+        public Mat QR_Geolocation(string late, string longe, Geolocation.GeolocationEncoding
+            encoding_ = Geolocation.GeolocationEncoding.GEO)
+        {
+            //Geolocation generator = new Geolocation("51.26118", "6.6717");
+            Geolocation generator = new Geolocation(late, longe, encoding_);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public Mat QR_ContactData(string xing, string name,
+            ContactData.ContactOutputType outtype = ContactData.ContactOutputType.VCard3,
+            string nickname = null, string phone = null, string mobilPhone = null, string
+            workPhone = null, string email = null, DateTime? birthday = null, string website = null
+            , string street = null, string houseNumber = null, string city = null, string zipCode
+            = null, string country = null, string note = null, string state = null,
+            ContactData.AddressOrder addressOrder = ContactData.AddressOrder.Default)
+        {
+            ContactData generator = new ContactData(outtype, name, xing, nickname, phone,
+                mobilPhone, workPhone, email, birthday, website, street, houseNumber, city,
+                zipCode, country, note, state, addressOrder);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 日历事件
+        /// </summary>
+        public Mat QR_Calendarevents(string subject, string desc, string location,
+            DateTime start, DateTime end, bool allday, CalendarEvent.EventEncoding encoding =
+            CalendarEvent.EventEncoding.Universal)
+        {
+            CalendarEvent generator = new CalendarEvent(subject, desc, location,
+                start, end, true, encoding);
+            string payload = generator.ToString();
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            var QR = qrCode.GetGraphic(4);
+            Mat src = BitmapConverter.ToMat(QR);
+            Cv2.Resize(src, src, new OpenCvSharp.Size(QR_Width, QR_Width));
+            return src;
+        }
+
+        /// <summary>
+        /// 返回二维码图片
+        /// </summary>
+        public Mat Encode(string text)
+        {
+            try
+            {
+                var qrCodeEncoder = new QRCodeEncoder();
+                qrCodeEncoder.QRCodeVersion = 5;
+                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.M;
+                qrCodeEncoder.QRCodeScale = 4;
+                var QR =  qrCodeEncoder.Encode(text);
+                return BitmapConverter.ToMat(QR);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 返回二维码定义的字符串
+        /// </summary>
+        public string Decode(Mat image)
+        {
+            try
+            {
+                var QR = BitmapConverter.ToBitmap(image);
+                var qrCodeBitmapImage = new QRCodeBitmapImage(QR);
+                var qrCodeDecoder = new QRCodeDecoder();
+                //qrCodeDecoder.decode(qrCodeBitmapImage, Encoding.ASCII);
+                return qrCodeDecoder.decode(qrCodeBitmapImage, Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 返回二维码定义的字符串
+        /// </summary>
+        public string Decode(string path)
+        {
+            return Decode(new Mat(path));
+        }
+    }
+}

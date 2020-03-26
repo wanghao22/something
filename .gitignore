@@ -7,13 +7,44 @@
 *.idb
 *.ipdb
 *.iobj
-*.ipch
 *.ilk
 *.obj
 *.log
 *.tlog
 *.cki
 *.exe.config
+
+# Compiled Dynamic libraries
+#*.so
+#*.dylib
+
+# Compiled Static libraries
+#*.lai
+#*.la
+#*.a
+
+# Intermediate directorys
+Static/
+static/
+Debug/
+debug/
+!Windows/Common/Src/Debug/
+!Windows/Common/Src/debug/
+Obj/
+obj/
+tlog/
+log/
+readme/
+
+# IDE Internal Files
+*.layout
+*.sdf
 *.VC.db
 *.opendb
-ipch/
+*.aps
+*.swp
+*.suo
+.vs/
+
+# include directory symbolic link files
+Linux/lib/**/*.so.*

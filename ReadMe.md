@@ -93,3 +93,17 @@
 - 查看所有提交
 
 > `gitk`
+
+* 撤销所有修改（未git add)
+
+> git checkout .
+
+* 撤销所有修改（已git add但未git commit)
+
+> git reset HEAD .
+
+* 撤销所有修改（已git commit)
+
+> git reset --hard [commitid]
+>
+> 你可以用git log命令来查看git的提交历史和commitid

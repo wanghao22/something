@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DirFileOption.h"
 using namespace std;
 
@@ -25,12 +26,36 @@ string DirFile::DirAddSubdir(string path, string subdir)
 	return dir;
 }
 
+//解决中文乱码的char*转wchar_t*
+CString DirFile::zhToCString(std::string str)
+{
+	//计算char *数组大小，以字节为单位，一个汉字占两个字节
+	int charLen = str.length();
+	//计算多字节字符的大小，按字符计算。
+	int len = MultiByteToWideChar(CP_ACP, 0, str.c_str(), charLen, NULL, 0);
+	//为宽字节字符数组申请空间，数组大小为按字节计算的多字节字符大小
+	TCHAR *buf = new TCHAR[len + 1];
+	//多字节编码转换成宽字节编码
+	MultiByteToWideChar(CP_ACP, 0, str.c_str(), charLen, buf, len);
+	buf[len] = '\0'; //添加字符串结尾，注意不是len+1
+					 //将TCHAR数组转换为CString
+	CString pWideChar;
+	pWideChar.Append(buf);
+	//删除缓冲区
+	delete[]buf;
+	return pWideChar;
+}
+
 //创建文件夹 完整路径
 int DirFile::CreateDir(string dir)
 {
-	wchar_t wdir[100];
-	swprintf_s(wdir, 100, L"%hs", dir.c_str());
-	return _wmkdir(wdir);
+	CString pWideChar = zhToCString(dir);
+	return _wmkdir(pWideChar);
+}
+
+int DirFile::CreateDir(CString dir)
+{
+	return _wmkdir(dir);
 }
 
 //创建文件夹 组合路径
@@ -112,7 +137,7 @@ int DirFile::DeleteDir(string dir, string subdir)
 	return DeleteDir(fullpath);
 }
 
-//返回上一级的路径
+
 std::string DirFile::GetFatherDir(std::string str)
 {
 	string dir;
@@ -127,32 +152,4 @@ std::string DirFile::GetFatherDir(std::string str)
 	d2 = dir.find_last_of("/");
 	dir = dir.substr(0, max(d1, d2));
 	return dir;
-}
-
-//移动文件 
-void DirFile::MoveDirFiles(std::string pathA, std::string pathB)
-{
-	string cmd = "move " + pathA + " " + pathB;
-	system(cmd.c_str());
-}
-
-//移动文件 
-void DirFile::MoveDirFiles(std::string pathA, std::string pathA_sub, std::string pathB)
-{
-	string fullpathA = DirAddSubdir(pathA, pathA_sub);
-	MoveDirFiles(fullpathA, pathB);
-}
-
-//复制文件
-void DirFile::CopyDirFiles(std::string pathA, std::string pathB)
-{
-	string cmd = "copy " + pathA + " " + pathB;
-	system(cmd.c_str());
-}
-
-//复制文件
-void DirFile::CopyDirFiles(std::string pathA, std::string pathA_sub, std::string pathB)
-{
-	string fullpathA = DirAddSubdir(pathA, pathA_sub);
-	CopyDirFiles(fullpathA, pathB);
 }
